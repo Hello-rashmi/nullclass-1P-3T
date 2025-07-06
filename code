@@ -1,0 +1,41 @@
+from google.colab import drive
+drive.mount('/content/drive')
+
+  dataset_path = "/content/drive/MyDrive/dataset"
+  !pip install diffusers transformers accelerate safetensors pillow pandas
+
+  from diffusers import StableDiffusionPipeline
+import torch
+from PIL import Image
+import pandas as pd
+import os
+
+#dataset path loaded
+dataset_path = "/content/drive/MyDrive/dataset"
+captions_file = os.path.join(dataset_path, "captions.csv")
+
+#Loading CSV file
+import pandas as pd
+df = pd.read_csv('/content/drive/MyDrive/dataset/captions.csv', encoding = 'ISO-8859-1') #location of csv dataset file
+
+#StableDiffusion pre-trained model
+
+pipe = StableDiffusionPipeline.from_pretrained(
+    "runwayml/stable-diffusion-v1-5",
+    torch_dtype=torch.float16
+).to("cuda")
+
+#generating image from text prompt
+output_dir = "/content/generated_images"
+os.makedirs(output_dir, exist_ok=True)
+
+for i in range (min(x, len(df))):  #x= toal no of data in dataset
+  prompt = df.iloc[i]['text']
+  image = pipe(prompt).images[0]
+
+  save_path = os.path.join(output_dir, f"generated_image_{i}.jpg")
+  image.save(save_path)
+  print(f"Saved:{save_path} | Prompt: {prompt}")
+
+  from google.colab import files
+files.download("/content/generated_images/generated_image_n.jpg") #n = serial number of desired image from dataset
