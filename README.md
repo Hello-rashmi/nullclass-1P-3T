@@ -2,6 +2,7 @@
 training a text to image ai model.
 
 #my custom dataset
+https://drive.google.com/drive/folders/1AMCBnCElBTfNs39b-KNeCKbeU6Isy05r
 
 #how to run
 1. copy the code.
