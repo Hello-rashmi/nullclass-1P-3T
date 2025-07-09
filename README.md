@@ -1,5 +1,6 @@
 # nullclass-1P-3T
 training a text to image ai model.
+GUI is needed
 
 #my custom dataset
 https://drive.google.com/drive/folders/1AMCBnCElBTfNs39b-KNeCKbeU6Isy05r
